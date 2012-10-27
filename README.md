@@ -1,0 +1,4 @@
+dogalog
+=======
+
+Life event logging
