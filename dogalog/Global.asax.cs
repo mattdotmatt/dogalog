@@ -6,6 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Griffin.MvcContrib.Providers.Membership;
+using Griffin.MvcContrib.Providers.Membership.PasswordStrategies;
+using Griffin.MvcContrib.RavenDb.Providers;
 
 namespace dogalog
 {
@@ -21,6 +24,8 @@ namespace dogalog
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+   
         }
     }
 }
