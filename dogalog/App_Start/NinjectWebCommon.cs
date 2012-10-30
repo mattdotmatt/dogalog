@@ -63,7 +63,7 @@ namespace dogalog.App_Start
 
             if(url.ToUpper().IndexOf("APPHARBOR", System.StringComparison.Ordinal)!=-1)
             {
-                url = String.Format("{0}; ApiKey=a815e293-cbc8-4c6a-9a47-2f3df69294b5", url);
+                url = String.Format("{0}; ApiKey=067d4f3d-d26a-4dc9-b362-e04a5a92ee8a", url);
             }
             kernel.Bind<IDocumentStore>()
                    .ToMethod(context =>
