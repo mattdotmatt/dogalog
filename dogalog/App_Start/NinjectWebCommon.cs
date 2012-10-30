@@ -63,8 +63,12 @@ namespace dogalog.App_Start
         /// <param name="kernel">The kernel.</param>
         public static void RegisterServices(IBindingRoot kernel)
         {
-            var url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"].Split('=')[1] + " a815e293-cbc8-4c6a-9a47-2f3df69294b5";
+            var url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"].Split('=')[1];
 
+            if(url.ToUpper().IndexOf("APPHARBOR", System.StringComparison.Ordinal)!=0)
+            {
+                url = String.Format("{0}; ApiKey=a815e293-cbc8-4c6a-9a47-2f3df69294b5", url);
+            }
             kernel.Bind<IDocumentStore>()
                    .ToMethod(context =>
                    {
