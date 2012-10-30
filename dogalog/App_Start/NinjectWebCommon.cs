@@ -63,7 +63,7 @@ namespace dogalog.App_Start
         /// <param name="kernel">The kernel.</param>
         public static void RegisterServices(IBindingRoot kernel)
         {
-            var url=ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"].Split('=')[1];
+            var url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"].Split('=')[1] + " a815e293-cbc8-4c6a-9a47-2f3df69294b5";
 
             kernel.Bind<IDocumentStore>()
                    .ToMethod(context =>
