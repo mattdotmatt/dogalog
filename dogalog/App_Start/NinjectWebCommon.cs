@@ -68,7 +68,7 @@ namespace dogalog.App_Start
             kernel.Bind<IDocumentStore>()
                    .ToMethod(context =>
                    {
-                       var documentStore = new DocumentStore { Url=url };
+                       var documentStore = new DocumentStore { Url = @"Url=https://1.ravenhq.com/databases/AppHarbor_7a9dd280-17f7-439b-aea4-36467fd9ef1d; ApiKey=067d4f3d-d26a-4dc9-b362-e04a5a92ee8a" };
                        return documentStore.Initialize();
                    })
                    .InSingletonScope();
