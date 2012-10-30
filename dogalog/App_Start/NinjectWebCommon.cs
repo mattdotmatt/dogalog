@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
 using Griffin.MvcContrib.Providers.Membership;
 using Griffin.MvcContrib.Providers.Membership.PasswordStrategies;
 using Griffin.MvcContrib.RavenDb.Providers;
@@ -12,7 +10,6 @@ using Ninject.Syntax;
 using Ninject.Web.Common;
 using Raven.Client;
 using Raven.Client.Document;
-using Raven.Client.Embedded;
 using Raven.Database.Server;
 using dogalog.App_Start;
 
