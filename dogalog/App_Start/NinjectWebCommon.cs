@@ -10,7 +10,6 @@ using Ninject.Syntax;
 using Ninject.Web.Common;
 using Raven.Client;
 using Raven.Client.Document;
-using Raven.Database.Server;
 using dogalog.App_Start;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
@@ -62,15 +61,14 @@ namespace dogalog.App_Start
         {
             var url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"].Split('=')[1];
 
-            if(url.ToUpper().IndexOf("APPHARBOR", System.StringComparison.Ordinal)!=0)
+            if(url.ToUpper().IndexOf("APPHARBOR", System.StringComparison.Ordinal)!=-1)
             {
                 url = String.Format("{0}; ApiKey=a815e293-cbc8-4c6a-9a47-2f3df69294b5", url);
             }
             kernel.Bind<IDocumentStore>()
                    .ToMethod(context =>
                    {
-                       NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8080);
-                                              var documentStore = new DocumentStore { Url=url };
+                       var documentStore = new DocumentStore { Url=url };
                        return documentStore.Initialize();
                    })
                    .InSingletonScope();
