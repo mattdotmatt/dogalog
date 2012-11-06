@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Griffin.MvcContrib.Providers.Membership;
-using Griffin.MvcContrib.Providers.Membership.PasswordStrategies;
-using Griffin.MvcContrib.RavenDb.Providers;
+using dogalog.Mappings;
 
 namespace dogalog
 {
@@ -25,7 +18,7 @@ namespace dogalog
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-   
+            AutoMapperWebConfiguration.Configure();
         }
     }
 }

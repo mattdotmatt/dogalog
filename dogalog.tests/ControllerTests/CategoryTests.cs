@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Raven.Client;
 using dogalog.Controllers;
 using dogalog.Entities;
+using dogalog.Mappings;
 using dogalog.Models;
 
 namespace dogalog.tests.ControllerTests
@@ -17,6 +18,7 @@ namespace dogalog.tests.ControllerTests
         [SetUp]
         public void Setup()
         {
+            AutoMapperWebConfiguration.Configure();
             _mockDocumentSession = new Mock<IDocumentSession>(MockBehavior.Strict);
         }
 
@@ -42,6 +44,7 @@ namespace dogalog.tests.ControllerTests
             _mockDocumentSession.Setup(o => o.Store(It.Is<Category>(
                     x=>x.Description==description
                 ))).Verifiable("Category should be saved");
+            _mockDocumentSession.Setup(o=>o.SaveChanges()).Verifiable("Save the store");
 
             var categoryModel = new CategoryModel
                 {
@@ -61,6 +64,7 @@ namespace dogalog.tests.ControllerTests
         {
             // Arrange
             _mockDocumentSession.Setup(o => o.Store(It.IsAny<Category>())).Verifiable("Category should be saved");
+            _mockDocumentSession.Setup(o=>o.SaveChanges()).Verifiable("Store should be saved");
 
             var category = new CategoryModel
             {

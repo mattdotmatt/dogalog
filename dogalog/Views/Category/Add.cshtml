@@ -2,7 +2,11 @@
 
 @{
     ViewBag.Title = "New Category";
-    Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2>Add a new Category</h2>
+ @using (Html.BeginForm("Add", "Category", FormMethod.Post, new { @class = "form-horizontal" }))
+ {
+     @Html.TextBoxFor(o=>o.Description)
+     <button type="submit"></button>
+ }

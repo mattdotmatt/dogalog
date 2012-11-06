@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Configuration;
 using System.Web;
-using Griffin.MvcContrib.Providers.Membership;
-using Griffin.MvcContrib.Providers.Membership.PasswordStrategies;
-using Griffin.MvcContrib.RavenDb.Providers;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Syntax;
@@ -75,20 +72,9 @@ namespace dogalog.App_Start
                            };
                        return documentStore.Initialize();
                    })
-                   .InSingletonScope();
+                   .InTransientScope();
 
             kernel.Bind<IDocumentSession>().ToMethod(context => context.Kernel.Get<IDocumentStore>().OpenSession()).InRequestScope();
-            kernel.Bind<IPasswordStrategy>().To<HashPasswordStrategy>();
-            kernel.Bind<IAccountRepository>().To<RavenDbAccountRepository>();
-            kernel.Bind<IPasswordPolicy>().To<PasswordPolicy>()
-                .WithPropertyValue("IsPasswordQuestionRequired", false)
-                .WithPropertyValue("IsPasswordResetEnabled", true)
-                .WithPropertyValue("IsPasswordRetrievalEnabled", false)
-                .WithPropertyValue("MaxInvalidPasswordAttempts", 5)
-                .WithPropertyValue("MinRequiredNonAlphanumericCharacters", 0)
-                .WithPropertyValue("PasswordAttemptWindow", 10)
-                .WithPropertyValue("PasswordMinimumLength", 6);
-            //.WithPropertyValue("PasswordStrengthRegularExpression", null);
         }
     }
 }

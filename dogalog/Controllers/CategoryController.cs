@@ -1,11 +1,14 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Raven.Client;
+using Raven.Client.Linq;
 using dogalog.Entities;
 using dogalog.Models;
 
 namespace dogalog.Controllers
 {
-    public class CategoryController:Controller
+    public class CategoryController : Controller
     {
         private readonly IDocumentSession _session;
 
@@ -16,7 +19,19 @@ namespace dogalog.Controllers
 
         public ViewResult Index()
         {
-            return View();
+            var categories = GetCategories();
+            var categoryModels = AutoMapper.Mapper.Map<List<Category>, List<CategoryModel>>(categories);
+            return View(categoryModels);
+        }
+
+        private List<Category> GetCategories()
+        {
+            List<Category> categories = (
+                                            from company in _session.Query<Category>()
+                                            select company
+                                        )
+                .ToList();
+            return categories;
         }
 
         public ViewResult Add()
@@ -27,8 +42,8 @@ namespace dogalog.Controllers
         [HttpPost]
         public RedirectToRouteResult Add(CategoryModel category)
         {
-            AutoMapper.Mapper.CreateMap<CategoryModel, Category>();
-            _session.Store(AutoMapper.Mapper.Map<CategoryModel,Category>(category));
+            _session.Store(AutoMapper.Mapper.Map<CategoryModel, Category>(category));
+            _session.SaveChanges();
             return RedirectToAction("Index");
         }
 
